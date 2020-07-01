@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
-import { Button } from 'antd';
-import './App.css'
+import './App.less'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Login from './pages/login/login'
+import Admin from './pages/admin/admin'
 export default class App extends Component {
 
-    
+
+
     render() {
         return (
-            <div>
-                App...123<br/>
-                <Button type="primary">Button</Button>
-            </div>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/login" component={Login}>login</Route>
+                    <Route path="/" component={Admin}>admin</Route>
+                </Switch>
+            </BrowserRouter>
         )
     }
 }
