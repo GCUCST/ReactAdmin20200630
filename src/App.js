@@ -11,10 +11,10 @@ export default class App extends Component {
     render() {
         return (
             <BrowserRouter>
-            <Button type="primary"> 点击</Button>
+            {/* <Button type="primary"> 点击</Button> */}
                 <Switch>
-                    <Route path="/login" component={Login}>login</Route>
-                    <Route path="/" component={Admin}>admin</Route>
+                    <Route path="/login" component={Login}></Route>
+                    <Route path="/" component={Admin}></Route>
                 </Switch>
             </BrowserRouter>
         )
