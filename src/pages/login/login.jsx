@@ -5,16 +5,22 @@ import { Form, Icon, Input, Button } from "antd";
 
 const Item = Form.Item;
 class Login extends Component {
+
+    
   handleSubmit = (e) => {
     e.preventDefault();
-    // this.props.form.validateFields((err, values) => {
-    //   if (!err) {
-    //     console.log('Received values of form: ', values);
-    //   }
-    // });
-    const form = this.props.form;
-    const values = form.getFieldsValue();
-    console.log("handleSubmit()", values);
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('没毛病，可以提交请求。', values);
+      }else{
+          console.log("校验失败！")
+      }
+    });
+    //手动获取值
+    // const form = this.props.form;
+    // const values = form.getFieldsValue();
+    // console.log("handleSubmit()", values);
+
   };
 
 //自定义验证密码
