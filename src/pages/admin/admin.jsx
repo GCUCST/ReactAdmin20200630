@@ -10,9 +10,9 @@ import Category from '../category/category'
 import Product from '../product/product'
 import Role from '../role/role'
 import User from '../user/user'
-import Bar from '../chars/bar'
-import Line from '../chars/line'
-import Pie from '../chars/pie'
+import Bar from '../charts/bar'
+import Line from '../charts/line'
+import Pie from '../charts/pie'
 
 const {  Footer, Sider, Content } = Layout;
 export default class Admin extends Component {
