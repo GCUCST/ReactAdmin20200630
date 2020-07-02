@@ -1,23 +1,44 @@
 import React, { Component } from "react";
 import "./login.less";
-import logo from "./images/logo.jpg";
-import { Form, Icon, Input, Button } from "antd";
+import logo from "../../assets/images/logo.jpg";
+import { Form, Icon, Input, Button, message } from "antd";
 import {reqLogin} from '../../api/index'
+import memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
+import {Redirect} from 'react-router-dom'
 const Item = Form.Item;
 class Login extends Component {
 
     
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async(err, values) => {
       if (!err) {
         // console.log('没毛病，可以提交请求。', values);
         const {username,password} = values;
-        reqLogin(username,password).then(response=>{
-          console.log('成功',response.data)
-        }).catch(error=>{
-          console.log('失败',error)
-        })
+          const result = await reqLogin(username,password);
+          console.log("请求成功：",result)
+          if(result.status===0){
+            message.success("登录成功！")
+            //保存用户
+            const user =  result.data
+            memoryUtils.user = user
+            storageUtils.saveUser(user)
+
+            //页面跳转(使用replace，就不能返回来了)
+            this.props.history.replace("/")
+            
+
+
+          }else{ //登录失败的提示信息
+            message.error(result.msg)
+          }
+        // reqLogin(username,password)
+        // .then(response=>{
+        //   console.log('成功',response.data)
+        // }).catch(error=>{
+        //   console.log('失败',error)
+        // })
       }else{
           console.log("校验失败！")
       }
@@ -48,6 +69,14 @@ class Login extends Component {
 
 
   render() {
+    
+    //如果用户已经登录，自动跳转到管理界面
+   const user =  memoryUtils.user
+    if(!user||!user._id){
+      return <Redirect to="/"/>
+    }
+
+
     //传入的强大对象
     const form = this.props.form;
     const { getFieldDecorator } = form;
@@ -96,7 +125,7 @@ class Login extends Component {
                     prefix={
                       <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
-                    type=""
+                    type="Password"
                     placeholder="Password"
                   />
                 )}
@@ -137,6 +166,20 @@ class Login extends Component {
  *      包装Form组件生成一个新的组件：Form(Login)
  *        新组件向Form组件传递一个强大的对象属性：from
  */
+
+
+ /**
+  * async 和 await
+  * 1.作用？
+  *   简化promise对象的使用，不再使用then()来指定成功/失败的回调函数。
+  *   以同步编码方式实现异步流程
+  * 
+  * 2.那里写await?
+  *   在返回promise的表达式左侧写await:不想要promise,想要promise异步执行成功的value数据
+  * 3.哪里写async?
+  *   await所在函数（最近的）左侧写async
+  * 
+  */
 
 const WrapLogin = Form.create()(Login);
 export default WrapLogin;
