@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "./index.less";
 import logo from "../../assets/images/logo.jpg";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import menuList from '../../config/menuConfig'
 import { Menu, Icon } from "antd";
 
 const { SubMenu } = Menu;
 
-export default class LeftNav extends Component {
+ class LeftNav extends Component {
 
   //使用map
   getMenuNodes_map = (menuList)=>{
@@ -45,6 +45,9 @@ export default class LeftNav extends Component {
   }
   //使用reduce()
   getMenuNodes = (menuList)=>{
+
+    const path = this.props.location.pathname
+
     return menuList.reduce((pre,item)=>{
         //向pre添加item
         if(!item.children){
@@ -60,6 +63,12 @@ export default class LeftNav extends Component {
         ))
       }
       else{
+       const citem =
+        item.children.find(citem=>citem.key === path)
+        //往组件传入一个openKey
+        if(citem)
+        this.openKey = item.key
+
         pre.push(
           (
             <SubMenu
@@ -82,8 +91,17 @@ export default class LeftNav extends Component {
     },[])
   }
 
+  //第一次render之前执行一次
+  componentWillMount(){
+    this.menuNodes = this.getMenuNodes(menuList)
+  }
 
   render() {
+
+    //要点，非路由组件变成路由组件（withRouter）
+    const path = this.props.location.pathname
+    const openKey = this.openKey
+
     return (
       <div className="left-nav">
         <Link to="/" className="left-nav-header">
@@ -92,8 +110,8 @@ export default class LeftNav extends Component {
         </Link>
 
         <Menu
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
+          selectedKeys={[path]}
+          defaultOpenKeys={[openKey]}
           mode="inline"
           theme="dark"
           //   inlineCollapsed={this.state.collapsed}
@@ -144,7 +162,8 @@ export default class LeftNav extends Component {
           </Menu.Item> */
           }
           {
-            this.getMenuNodes(menuList)
+            // this.getMenuNodes(menuList)
+            this.menuNodes
           }
 
 
@@ -155,3 +174,6 @@ export default class LeftNav extends Component {
     );
   }
 }
+
+
+export default withRouter(LeftNav)
