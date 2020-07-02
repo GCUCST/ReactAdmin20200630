@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./login.less";
 import logo from "./images/logo.jpg";
 import { Form, Icon, Input, Button } from "antd";
-
+import {reqLogin} from '../../api/index'
 const Item = Form.Item;
 class Login extends Component {
 
@@ -11,7 +11,13 @@ class Login extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('没毛病，可以提交请求。', values);
+        // console.log('没毛病，可以提交请求。', values);
+        const {username,password} = values;
+        reqLogin(username,password).then(response=>{
+          console.log('成功',response.data)
+        }).catch(error=>{
+          console.log('失败',error)
+        })
       }else{
           console.log("校验失败！")
       }

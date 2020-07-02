@@ -1,6 +1,7 @@
 import axios from 'axios'
 // import {message} from 'antd'
 
+//封装发送请求的方法
 
 export default function ajax(url,data={},method='GET'){
         if(method ==='GET'){
@@ -10,6 +11,12 @@ export default function ajax(url,data={},method='GET'){
         }
 
 }
+
+//请求登录接口
+// ajax('/login',{username:'Tome',password:'12345'},'POST').then()
+//添加用户
+// ajax('/manage/user/add',{username:'Tome',password:'12345',phone:'15211111111'},'POST').then()
+
 
 // export default function ajax(url,data={},method='GET'){
 //     return new Promise(function(resolve,reject){
