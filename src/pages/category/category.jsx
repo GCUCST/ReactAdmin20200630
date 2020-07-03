@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Card, Table, Button, Icon, message, Modal } from "antd";
 import LinkButton from "../../components/link-button";
+import AddForm from  './add-form'
+import UpdateForm from  './update-form'
+
+
 import {
   reqCategories,
   reqAddCategory,
@@ -30,7 +34,7 @@ export default class Category extends Component {
         render: (category) => (
           //返回需要显示的界面标签
           <div>
-            <LinkButton onClick={this.showUpdate}>修改分类</LinkButton>
+            <LinkButton onClick={()=>this.showUpdate(category)} >修改分类</LinkButton>
             {this.state.parentId === "0" ? (
               <LinkButton
                 onClick={() => {
@@ -102,8 +106,13 @@ export default class Category extends Component {
   }
 
     //显示修改框
-    showUpdate =()=>{
-        this.setState({showStatus:2})
+    showUpdate =(category)=>{
+        //保存到分类对象（修改使用）
+        this.category = category
+        //更新
+        this.setState({
+            showStatus:2
+        })
     }
 
 
@@ -151,6 +160,8 @@ export default class Category extends Component {
       loading,
       parentName,
     } = this.state;
+    //用于修改
+    const category = this.category||{}
 
     //左侧的标题
     const title =
@@ -189,7 +200,7 @@ export default class Category extends Component {
             onOk={this.addCategory}
             onCancel={this.handleCancel}
           >
-            <p>添加分类</p>
+            <AddForm></AddForm>
           </Modal>
           <Modal
             title="修改分类"
@@ -197,7 +208,7 @@ export default class Category extends Component {
             onOk={this.updateCategory}
             onCancel={this.handleCancel}
           >
-            <p>修改分类</p>
+            <UpdateForm categoryName={category.name}/>
        
           </Modal>
         </Card>
