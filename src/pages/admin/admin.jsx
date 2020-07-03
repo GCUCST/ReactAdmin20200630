@@ -21,6 +21,7 @@ export default class Admin extends Component {
     //如果内存中没有user（还没登陆）
     if (!user || !user._id) {
       //跳转去登录界面（render()）
+      console.log("admin() render")
       return <Redirect to="/login" />;
     }
 

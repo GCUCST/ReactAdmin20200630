@@ -72,10 +72,10 @@ class Login extends Component {
     
     //如果用户已经登录，自动跳转到管理界面
    const user =  memoryUtils.user
-    if(!user||!user._id){
+    if(user._id){
+      console.log("login() render()")
       return <Redirect to="/"/>
     }
-
 
     //传入的强大对象
     const form = this.props.form;
