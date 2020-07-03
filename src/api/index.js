@@ -26,7 +26,6 @@ export const reqAddCategory = (parentId,categoryName)=>{
     return ajax(BASE+'/manage/category/add',param,'POST')
 }
 
-
 //更新分类
 export const reqUpdateCategory = (categoryId,categoryName)=>{
     let param = new URLSearchParams();

@@ -4,8 +4,14 @@ import PropsTypes from 'prop-types'
 const Item = Form.Item;
 class UpdateForm extends Component {
   static propsTypes = {
-    categoryName:PropsTypes.string.isRequired
+    categoryName:PropsTypes.string.isRequired,
+    setForm:PropsTypes.func.isRequired
   }
+  componentWillMount(){
+    //将form对象通过setForm（）传递给父组件
+    this.props.setForm(this.props.form)
+  }
+
 
   render() {
     const {categoryName} = this.props
@@ -15,6 +21,9 @@ class UpdateForm extends Component {
         <Item>
           {getFieldDecorator("categoryName", {
             initialValue: categoryName,
+            rules:[
+              {required:true,message:'分类名称输入'}
+            ]
           })(<Input placeholder="请输入分类名称" />)}
         </Item>
       </Form>
