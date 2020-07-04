@@ -34,3 +34,11 @@ export const reqUpdateCategory = (categoryId,categoryName)=>{
     return ajax(BASE+'/manage/category/update',param,'POST')
 }
 
+//获取商品
+export const reqProducts = (pageNum,pageSize)=>{
+    let param = new URLSearchParams();
+    param.append("pageNum",pageNum)
+    param.append("pageSize",pageSize)
+    return ajax(BASE+'/manage/product/list',param)
+}
+
