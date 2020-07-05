@@ -42,7 +42,7 @@ export default class ProductHome extends Component {
 
   getProducts=async (pageNum)=>{
       const result  = await reqProducts(pageNum,PAGE_SIZE)
-      console.log("====没有写后台数据，所以本方法无效。（有接口，无实现）====")
+      console.log("====没有写后台数据，所以本方法无效。（有接口，无实现）===")
       if(result.status===0){
           const {total,list} = result.data
           this.setState({
