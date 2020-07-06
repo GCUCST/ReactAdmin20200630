@@ -64,10 +64,17 @@ const { SubMenu } = Menu;
       }
       else{
        const citem =
-        item.children.find(citem=>citem.key === path)
+        item.children.find(citem=>{
+          if(path.indexOf(citem.key)===0){
+            return citem;
+          }
+        }
+        )
         //往组件传入一个openKey
         if(citem)
-        this.openKey = item.key
+        {
+          this.openKey = item.key
+        }
 
         pre.push(
           (
@@ -99,8 +106,14 @@ const { SubMenu } = Menu;
   render() {
 
     //要点，非路由组件变成路由组件（withRouter）
-    const path = this.props.location.pathname
-    const openKey = this.openKey
+    let path = this.props.location.pathname
+    let openKey = this.openKey
+
+    if(path.indexOf('/product')===0){
+      path = '/product'
+    }
+    console.log("render()",path)
+    console.log("render()--",openKey)
 
     return (
       <div className="left-nav">

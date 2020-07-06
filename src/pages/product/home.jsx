@@ -84,7 +84,10 @@ export default class ProductHome extends Component {
         render: (status) => {
           return (
             <span>
-              <LinkButton>详情</LinkButton>
+              <LinkButton onClick={()=>{
+                console.log("为什么没有翻译。。")
+                this.props.history.push("/product/detail")
+              }}  >详情1</LinkButton>
               <LinkButton>修改</LinkButton>
             </span>
           );
@@ -93,6 +96,7 @@ export default class ProductHome extends Component {
     ];
   };
 
+  
   componentWillMount() {
     this.initColumns();
   }
