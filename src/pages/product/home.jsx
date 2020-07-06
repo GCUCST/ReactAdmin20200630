@@ -27,7 +27,7 @@ export default class ProductHome extends Component {
             status:1,
             _id:'00145',
             name:"维生素445",
-            desc:"没有描述",
+            desc:"没有描述1",
             price:1230
         },
         {
