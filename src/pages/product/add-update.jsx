@@ -19,6 +19,13 @@ const options = [
 ];
 
 class ProductAddUpdate extends Component {
+
+  constructor(props){
+    super(props)
+    this.editor = React.createRef()
+  }
+
+
   state = {
     options,
   };
@@ -28,6 +35,9 @@ class ProductAddUpdate extends Component {
     this.props.form.validateFields((error, vales) => {
       if (!error) {
         alert("发送请求。。。");
+
+        const detail = this.editor.current.getDetail()
+        console.log(detail)
       }
     });
   };
@@ -74,6 +84,9 @@ class ProductAddUpdate extends Component {
     }, 1000);
   };
 
+  fufun(num){
+    console.log('我是父组件，我收到：'+num)
+  }
   render() {
     const formItemLayout = {
       labelCol: { span: 2 },
@@ -92,6 +105,8 @@ class ProductAddUpdate extends Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
+
+
       <Card title={title}>
         <Form {...formItemLayout}>
           <Item label="商品名称:" style={{ fontSize: 24 }}>
@@ -132,6 +147,14 @@ class ProductAddUpdate extends Component {
             />
           </Item>
 
+
+
+          <Item label="商品详情" labelCol= { {span:2}} wrapperCol= { {span: 20} }>
+            <RichTextEditor 
+            // detail={this.detail}
+            fufun={this.fufun} ref={this.editor}/>
+          </Item>
+
           <Item>
             <Button
               type="primary"
@@ -142,8 +165,8 @@ class ProductAddUpdate extends Component {
               提交
             </Button>
           </Item>
+
         </Form>
-        <RichTextEditor/>
       </Card>
     );
   }

@@ -50,7 +50,7 @@ class Header extends Component {
       }else{
         if(item.children){
           //在子item中查找
-          const citem = item.children.find(citem=>citem.key===path)
+          const citem = item.children.find(citem=>path.indexOf((citem.key))===0)
           if(citem){
             title = citem.title
           }
