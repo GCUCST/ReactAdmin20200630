@@ -4,7 +4,7 @@ export default  function Counter(props){
     let state = store.getState()
     return (
       <div className="index">
-        <h1 >值：{state.num}</h1>
+        <h1 >值：{state.num }</h1>
         <button onClick={add}>加一</button>&nbsp;&nbsp;&nbsp;
         <button onClick={decr}>减一</button>
       </div>

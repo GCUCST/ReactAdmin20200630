@@ -45,7 +45,7 @@ export default class Admin extends Component {
                 <Redirect  to="/home"/>
               </Switch>
           </Content>
-          <Footer style={{textAlign:"center"}}>react学习之路</Footer>
+          <Footer style={{textAlign:"center"}}>react学习之路1</Footer>
         </Layout>
       </Layout>
     );
